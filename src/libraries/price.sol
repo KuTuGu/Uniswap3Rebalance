@@ -4,12 +4,10 @@ pragma solidity 0.8.19;
 import "v3-core/interfaces/IUniswapV3Factory.sol";
 import "v3-core/interfaces/IUniswapV3Pool.sol";
 
-import "forge-std/Test.sol";
-
 import {IERC20Metadata as IERC20} from "@openzeppelin/contracts/interfaces/IERC20Metadata.sol";
 
 library PriceUtil {
-    uint256 constant PRICE_SCALE = 1e8;
+    uint256 constant PRICE_SCALE = 1e18;
     uint256 constant Q96 = 0x1000000000000000000000000;
 
     function getPrice1(address factory, address token0, address token1, uint24 fee) public view returns (uint256 price) {
@@ -24,6 +22,6 @@ library PriceUtil {
             price = numerator1 * numerator2 / (Q96 * Q96);
         }
 
-        price = 10 ** IERC20(token0).decimals() * PRICE_SCALE / price;
+        price = 10 ** IERC20(token1).decimals() * PRICE_SCALE / price;
     }
 }

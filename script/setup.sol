@@ -8,7 +8,8 @@ import "src/libraries/address.sol";
 
 contract Setup is Script {
     function run() public {
-        vm.startBroadcast();
+        uint256 privateKey = vm.envUint("PRIVATE_KEY");
+        vm.startBroadcast(privateKey);
 
         new Rebalance(Address.FACTORY, Address.POSITION_MANAGER, Address.ROUTER);
 
